@@ -1,11 +1,13 @@
 import time 
 from datetime import datetime as dt 
+import sys
 
 UPDATE_TIME = 3600 # 1 hour
 
 # set the time limits 
 STARTING_CLOCK = 8
 ENDING_CLOCK = 16
+allow = True
   
 # change hosts path according to your OS 
 hosts_path = "/etc/hosts"
@@ -50,10 +52,16 @@ def free_sites():
         file.truncate() # resizing to its default 
 
 
+def safe_terminate():
+	free_sites()
+	print(":> Program is now terminated succussfully.")
+	sys.exit(0)
+
+
 def exe():
-	global hosts_path, redirect, website_list, UPDATE_TIME
-	# program main loop
-	while True: 
+    global hosts_path, redirect, website_list, UPDATE_TIME
+    # program main loop
+    while True: 
     	if time_check(): # time of your work 
         	print("::> At working time, the websites are now block ...") 
         	block_sites()
@@ -61,4 +69,15 @@ def exe():
     		print("::> At free time, the websites are now available ...") 
     		free_sites()	
   		# wait for update time to come
-    	time.sleep(UPDATE_TIME) 
+    	try: 
+    		time.sleep(UPDATE_TIME) 
+    	except:
+    		try:
+    			safe_terminate()	
+    		except:
+    			print("::?> Warning => Program may damaged your host file.")
+    			sys.exit(-1)
+
+
+if __name__ == "__main__":
+	exe()    	
