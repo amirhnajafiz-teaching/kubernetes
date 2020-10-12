@@ -16,8 +16,17 @@ redirect = "127.0.0.1"
   
 # websites That you want to block 
 file_of_sites = "data.txt"
-backup_file = "packup"
-website_list = ["www.facebook.com","facebook.com","dub119.mail.live.com"] 
+backup_file = "backup"
+website_list = []
+
+
+def save_backup():
+	global hosts_path, backup_file
+	with open(hosts_path, 'r') as file: 
+        content = file.read() 
+        with open(backup_file, 'w') as dest:
+        	dest.write(content)
+        	print(":> We backuped your data, please don't remove the file.")
 
 
 def input_sites():
@@ -94,6 +103,7 @@ def exe():
 def go(argv):
 	if argv[0] == "RESET":
 		safe_terminate()
+	save_backup()	
 	input_sites()
 	exe()	
 
