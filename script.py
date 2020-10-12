@@ -2,6 +2,12 @@ import time
 from datetime import datetime as dt 
 import sys
 
+#
+# A script created to block the sites you want at a special time.
+# Do not delete the given files by the script, otherwise you may actually
+# get in troble.
+# Create by amirhossein at Oct 12th 2020
+
 UPDATE_TIME = 3600 # 1 hour
 
 # set the time limits 
