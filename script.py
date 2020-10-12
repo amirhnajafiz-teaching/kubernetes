@@ -15,7 +15,19 @@ hosts_path = "/etc/hosts"
 redirect = "127.0.0.1"
   
 # websites That you want to block 
+file_of_sites = "data.txt"
+backup_file = "packup"
 website_list = ["www.facebook.com","facebook.com","dub119.mail.live.com"] 
+
+
+def input_sites():
+	try:
+		with open(file_of_sites, 'r') as file:
+			content = file.readlines()
+			website_list = [line for line in content]
+	except:
+		print(":?> No \"data.txt\" found to get the sites.")
+		sys.exit(-1)		
 
 
 def time_check(): # to check if the program should still run
@@ -79,5 +91,12 @@ def exe():
     			sys.exit(-1)
 
 
+def go(argv):
+	if argv[0] == "RESET":
+		safe_terminate()
+	input_sites()
+	exe()	
+
+
 if __name__ == "__main__":
-	exe()    	
+	go(sys.argv[1:])
