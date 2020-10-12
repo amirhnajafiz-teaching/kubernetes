@@ -21,12 +21,26 @@ website_list = []
 
 
 def save_backup():
-	global hosts_path, backup_file
-	with open(hosts_path, 'r') as file: 
+    global hosts_path, backup_file
+    with open(hosts_path, 'r') as file: 
         content = file.read() 
         with open(backup_file, 'w') as dest:
         	dest.write(content)
         	print(":> We backuped your data, please don't remove the file.")
+
+
+def restore_data(): 
+    global hosts_path, backup_file
+    try:
+    	with open(backup_file, 'r') as file: 
+        	content = file.read() 
+        	with open(hosts_path, 'w') as dest:
+        		dest.write(content)
+        		print(":> Data restored.") 
+    except:
+    	print(">? Since you removed the backup file, cannot restore your data")  
+    finally:
+    	sys.exit(0)	  		      	
 
 
 def input_sites():
@@ -101,12 +115,12 @@ def exe():
 
 
 def go(argv):
-	if argv[0] == "RESET":
-		safe_terminate()
+	if argv[1] == "RESET":
+		restore_data()
 	save_backup()	
 	input_sites()
 	exe()	
 
 
 if __name__ == "__main__":
-	go(sys.argv[1:])
+	go(sys.argv[0:])
