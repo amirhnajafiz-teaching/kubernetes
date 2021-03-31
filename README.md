@@ -50,5 +50,3 @@ For reseting the program just use following code:<br/>
 ```python
   python3 script.py RESET
 ```
-
-Contact me at najafizadeh21@gmail.com or officialamirhossein21@gmail.com
