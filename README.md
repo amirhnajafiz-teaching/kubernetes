@@ -50,3 +50,4 @@ For reseting the program just use following code:<br/>
 ```python
   python3 script.py RESET
 ```
+
